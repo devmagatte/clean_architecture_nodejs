@@ -11,6 +11,7 @@ export default class MongoDb implements IDatabase {
     try {
       this.database.set("strictQuery", false)
       await this.database.connect(url_database)
+      console.info("Connection MongoDB réusie")
     } catch (error) {
       throw Error(error as string)
     }
