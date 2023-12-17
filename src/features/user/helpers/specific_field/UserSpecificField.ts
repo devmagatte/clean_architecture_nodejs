@@ -4,8 +4,8 @@ import UserTypeSpecificField from "./UserTypeSpecificField"
 export class UserSpecificField {
   static fromBody(objet: any) {
     return {
-      fist_name: capitalizeFirstLetter(objet.name),
-      last_name: capitalizeFirstLetter(objet.name),
+      first_name: capitalizeFirstLetter(objet.first_name),
+      last_name: capitalizeFirstLetter(objet.last_name),
       email: objet.email,
       address: objet.address,
       code_user_type: objet.code_user_type,
@@ -15,7 +15,7 @@ export class UserSpecificField {
   static fields(objet: any) {
     return {
       code: objet.code,
-      fist_name: objet.name,
+      first_name: objet.name,
       last_name: objet.name,
       email: objet.email,
       address: objet.address,
@@ -26,7 +26,7 @@ export class UserSpecificField {
   static fieldsWithJoin(objet: any) {
     return {
       code: objet.code,
-      fist_name: objet.name,
+      first_name: objet.name,
       last_name: objet.name,
       email: objet.email,
       address: objet.address,

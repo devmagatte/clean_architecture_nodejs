@@ -1,13 +1,13 @@
 import { Router, Request, Response } from "express"
 
-import UserTypeController from "../controllers/UserTypeController"
-import UserTypeDatasource from "../datasources/UserTypeDatasource"
-import UserTypeRepository from "../repositories/UserTypeRepository"
+import { UserController } from "../controllers/UserController"
+import { UserDatasource } from "../datasources/UserDatasource"
+import { UserRepository } from "../repositories/UserRepository"
 
 const router = Router()
-const datasource = new UserTypeDatasource()
-const repository = new UserTypeRepository(datasource)
-const controller = new UserTypeController(repository)
+const datasource = new UserDatasource()
+const repository = new UserRepository(datasource)
+const controller = new UserController(repository)
 
 router.get("/all", (req: Request, res: Response) => {
   return controller.index(req, res)
@@ -25,9 +25,13 @@ router.put("/:code/update", (req: Request, res: Response) => {
   return controller.update(req, res)
 })
 
+router.put("/:code/status", (req: Request, res: Response) => {
+  return controller.status(req, res)
+})
+
 router.delete("/:code/delete", (req: Request, res: Response) => {
   return controller.delete(req, res)
 })
 
-const USER_TYPES_V1_ROUTES = router
-export default USER_TYPES_V1_ROUTES
+const USERS_V1_ROUTES = router
+export default USERS_V1_ROUTES
