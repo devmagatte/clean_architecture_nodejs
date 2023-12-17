@@ -6,6 +6,8 @@ import helmet from "helmet"
 import settingCorsOption from "../core/config/cors"
 import { configSession } from "../core/config/configSession"
 
+import { RouteUser } from "../features/user/routes/RouteUser"
+
 const app = express()
 
 app.use(settingCorsOption)
@@ -19,5 +21,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(express.static("public"))
+
+RouteUser(app)
 
 export default app
