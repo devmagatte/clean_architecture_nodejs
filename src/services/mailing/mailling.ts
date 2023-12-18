@@ -12,7 +12,7 @@ export interface ParamsMailling {
   subject: string
 }
 
-const { log } = console
+const { info, error } = console
 
 export default class Mailling implements IMailling {
   private pathTemplate = "./src/views/mailling/"
@@ -42,7 +42,7 @@ export default class Mailling implements IMailling {
 
       await transporter.sendMail(mailOptions)
     } catch (error: any) {
-      log(`Error sending email: ${error.message}`)
+      error(`Error sending email: ${error.message}`)
     }
   }
 
@@ -54,15 +54,15 @@ export default class Mailling implements IMailling {
         const result = await transporter.verify()
 
         if (result) {
-          log(`Configuration Mailling réussie`)
+          error(`Configuration Mailling réussie`)
         } else {
-          log("Erreur configuration Mailling")
+          info("Erreur configuration Mailling")
         }
       } else {
-        log(`Erreur configuration Mailling: No host`)
+        error(`Erreur configuration Mailling: No host`)
       }
     } catch (error: any) {
-      log(`Erreur configuration Mailling: ${error.message}`)
+      error(`Erreur configuration Mailling: ${error.message}`)
     }
   }
 
