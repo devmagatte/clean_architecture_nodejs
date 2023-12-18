@@ -7,6 +7,7 @@ import settingCorsOption from "../core/config/cors"
 import { configSession } from "../core/config/configSession"
 
 import { RouteUser } from "../features/user/routes/RouteUser"
+import { RouteAuth } from "../features/auth/routes/RouteAuth"
 
 const app = express()
 
@@ -23,5 +24,6 @@ app.use(passport.session())
 app.use(express.static("public"))
 
 RouteUser(app)
+RouteAuth(app)
 
 export default app
