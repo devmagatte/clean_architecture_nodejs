@@ -19,14 +19,7 @@ export default class Mailling implements IMailling {
 
   async sendMail(paramsMailling: ParamsMailling): Promise<void> {
     try {
-      const transporter = nodemailer.createTransport({
-        debug: true,
-        host: process.env.MAIL_HOST,
-        auth: {
-          user: process.env.MAIL_USERNAME,
-          pass: process.env.MAIL_PASSWORD,
-        },
-      })
+      const transporter = this.#getTranport()
 
       transporter.use(
         "compile",
@@ -51,5 +44,37 @@ export default class Mailling implements IMailling {
     } catch (error: any) {
       log(`Error sending email: ${error.message}`)
     }
+  }
+
+  async verifyConfigEmailing(): Promise<void> {
+    try {
+      if (process.env.MAIL_HOST) {
+        const transporter = this.#getTranport()
+
+        const result = await transporter.verify()
+
+        if (result) {
+          log(`Configuration Mailling réussie`)
+        } else {
+          log("Erreur configuration Mailling")
+        }
+      } else {
+        log(`Erreur configuration Mailling: No host`)
+      }
+    } catch (error: any) {
+      log(`Erreur configuration Mailling: ${error.message}`)
+    }
+  }
+
+  #getTranport() {
+    const transporter = nodemailer.createTransport({
+      debug: true,
+      host: process.env.MAIL_HOST,
+      auth: {
+        user: process.env.MAIL_USERNAME,
+        pass: process.env.MAIL_PASSWORD,
+      },
+    })
+    return transporter
   }
 }
