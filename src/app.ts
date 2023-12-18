@@ -8,6 +8,7 @@ import { errorBodyHandler, errorUrlHandler } from "./core/utils/error_handle"
 
 import MongoDb from "./services/database/mongoose/MongoDb"
 import DbAdapter from "./services/database/db_adapter"
+import Mailling from "./services/mailing/mailling"
 
 import app from "./routes/api_route_v1"
 
@@ -19,10 +20,13 @@ const urlMongo =
     : process.env.DB_URL_MONGO_TEST
 
 const database = new DbAdapter(new MongoDb(), urlMongo as string)
+const nailling = new Mailling()
 
+nailling.verifyConfigEmailing()
 database.connectDatabase()
 
 const specswagger = swaggerJSDoc(swaggerOptions)
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(specswagger))
 app.set("view engine", "handlebars")
 
