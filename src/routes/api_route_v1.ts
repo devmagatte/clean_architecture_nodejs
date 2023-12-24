@@ -8,8 +8,12 @@ import { configSession } from "../core/config/configSession"
 
 import { RouteUser } from "../features/user/routes/RouteUser"
 import { RouteAuth } from "../features/auth/routes/RouteAuth"
+import ConfigI18n from "../core/config/i18n/config_i18n"
 
 const app = express()
+const configI18n = new ConfigI18n()
+
+configI18n.init()
 
 app.use(settingCorsOption)
 app.use(helmet())
