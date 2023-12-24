@@ -1,0 +1,15 @@
+{
+    "email_already_exists": "Cet email est déjà utilisé",
+    "name_already_exists": "Le nom existe déjà",
+    "code_not_found": "Le code est introuvable",
+    "list_user": "Liste des d'utilisateurs",
+    "store_user": "Utilisateur crée",
+    "show_user": "L'utilisateur",
+    "update_user": "L'utilisateur a étè mise à jour",
+    "status_user": "Le statut de l'utilisateur a été mis à jour",
+    "delete_user": "L'utilisateur a étè supprimé",
+    "list_type_user": "Liste des types d'utilisateurs",
+    "store_type_user": "type d'utilisateur crée",
+    "show_type_user": "Type d'utilisateur",
+    "update_type_user": "Le type d'utilisateur a étè mise à jour"
+}

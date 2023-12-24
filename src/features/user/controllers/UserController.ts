@@ -5,6 +5,7 @@ import OptionPagination from "../../../core/utils/OptionPagination"
 
 import { UserParamsVerify } from "../helpers/params_verify/UserParamsVerify"
 import { IUserRepository } from "../repositories/UserRepository"
+import translateText from "../../../core/helpers/i18nHelper"
 
 interface IUserController extends IController {
   status(req: Request, res: Response): any
@@ -22,9 +23,9 @@ export class UserController extends ApiResponse implements IUserController {
         pagination.page,
         pagination.limit,
       )
-      return this.success(res, 200, "Liste des types d'utilisateurs", result)
+      return this.success(res, 200, translateText("list_user", req), result)
     } catch (error: any) {
-      return this.fail(res, error.message)
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -35,12 +36,12 @@ export class UserController extends ApiResponse implements IUserController {
 
       if (MESSAGE_ERROR.length === 0) {
         const result = await this.repository.save(body)
-        return this.created(res, 201, "Utilisateur crée", result)
+        return this.created(res, 201, translateText("store_user", req), result)
       }
 
       return this.clientError(res, MESSAGE_ERROR.join(" - "))
-    } catch (error: unknown) {
-      return this.sendError(error, res)
+    } catch (error: any) {
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -50,9 +51,9 @@ export class UserController extends ApiResponse implements IUserController {
       const { code } = params
 
       const result = await this.repository.getOneByCode(code)
-      return this.success(res, 200, "Type d'utilisateur", result)
+      return this.success(res, 200, translateText("show_user", req), result)
     } catch (error: any) {
-      return this.sendError(error.message, res)
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -65,16 +66,11 @@ export class UserController extends ApiResponse implements IUserController {
 
       if (MESSAGE_ERROR === null) {
         const result = await this.repository.update(params.code, body)
-        return this.created(
-          res,
-          200,
-          "Le type d'utilisateur a étè mise à jour",
-          result,
-        )
+        return this.created(res, 200, translateText("update_user", req), result)
       }
       return this.clientError(res, MESSAGE_ERROR.join(" - "))
     } catch (error: any) {
-      return this.sendError(error.message, res)
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -82,9 +78,9 @@ export class UserController extends ApiResponse implements IUserController {
     try {
       const { params } = req
       const result = await this.repository.changeStatus(params.code)
-      return this.created(res, 200, "Status customer has been updated", result)
+      return this.created(res, 200, translateText("status_user", req), result)
     } catch (error: any) {
-      return this.sendError(error.message, res)
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -94,14 +90,9 @@ export class UserController extends ApiResponse implements IUserController {
       const { code } = params
 
       await this.repository.deleteOne(code)
-      return this.success(
-        res,
-        200,
-        "Le type d'utilisateur a étè supprimé",
-        null,
-      )
+      return this.success(res, 200, translateText("delete_user", req), null)
     } catch (error: any) {
-      return this.sendError(error.message, res)
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 }

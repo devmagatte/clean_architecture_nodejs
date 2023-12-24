@@ -50,7 +50,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
       if (this.isValid(result)) {
         return UserSpecificField.fields(result)
       }
-      throw Error("Le code est introuvable")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }
@@ -62,7 +62,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
       if (this.isValid(result)) {
         return UserSpecificField.fieldsWithJoin(result)
       }
-      throw Error("Le code est introuvable")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }
@@ -74,7 +74,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
 
       const match = { email: data.email }
       const isEmailIsUse = await this.datasource.isExiste(match)
-      if (isEmailIsUse) throw Error(`L'email est déjà utilisé`)
+      if (isEmailIsUse) throw Error("email_already_exists")
 
       await this.isUserTypeExiste(data)
 
@@ -90,7 +90,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
       const result = await this.datasource.store(bodyRequest)
       return UserSpecificField.fields(result)
     } catch (error: any) {
-      throw Error(error.message ?? "Erreur durant la création")
+      throw Error(error.message)
     }
   }
 
@@ -101,7 +101,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
       const find = await this.datasource.filter({ email: data.email })
       const codeFind = find ? find.code : undefined
       if (codeFind != undefined && codeFind != code) {
-        throw Error(`L'email existe déjà `)
+        throw Error("email_already_exists")
       }
 
       await this.isUserTypeExiste(data)
@@ -111,7 +111,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
         return UserSpecificField.fields(result)
       }
 
-      throw Error("Le code est introuvable")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }
@@ -123,7 +123,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
       code: code_user_type,
     })
 
-    if (!isUseTypeExist) throw Error(`Le code du type est introuvable`)
+    if (!isUseTypeExist) throw Error("code_not_found")
   }
 
   async changeStatus(code: string) {
@@ -136,7 +136,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
         return UserSpecificField.fields(data)
       }
 
-      throw Error("User not found")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }
@@ -150,7 +150,7 @@ export class UserRepository extends VerifyField implements IUserRepository {
         return null
       }
 
-      throw Error("Le code est introuvable")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }

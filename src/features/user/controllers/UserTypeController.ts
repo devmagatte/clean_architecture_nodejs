@@ -5,6 +5,7 @@ import OptionPagination from "../../../core/utils/OptionPagination"
 
 import UserParamsVerify from "../helpers/params_verify/UserTypeParamsVerify"
 import UserTypeRepository from "../repositories/UserTypeRepository"
+import translateText from "../../../core/helpers/i18nHelper"
 
 interface IUserTypeController extends IController {}
 
@@ -24,9 +25,14 @@ export default class AdminController
         pagination.page,
         pagination.limit,
       )
-      return this.success(res, 200, "Liste des types d'utilisateurs", result)
+      return this.success(
+        res,
+        200,
+        translateText("list_type_user", req),
+        result,
+      )
     } catch (error: any) {
-      return this.fail(res, error.message)
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -37,12 +43,17 @@ export default class AdminController
 
       if (MESSAGE_ERROR === null) {
         const result = await this.repository.save(body)
-        return this.created(res, 201, "Nouvel type d'utilisateur crée", result)
+        return this.created(
+          res,
+          201,
+          translateText("store_type_user", req),
+          result,
+        )
       }
 
       return this.clientError(res, MESSAGE_ERROR)
-    } catch (error: unknown) {
-      return this.sendError(error, res)
+    } catch (error: any) {
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -52,9 +63,14 @@ export default class AdminController
       const { code } = params
 
       const result = await this.repository.getOneByCode(code)
-      return this.success(res, 200, "Type d'utilisateur", result)
+      return this.success(
+        res,
+        200,
+        translateText("show_type_user", req),
+        result,
+      )
     } catch (error: any) {
-      return this.sendError(error.message, res)
+      return this.sendError(translateText(error.message, req), res)
     }
   }
 
@@ -70,7 +86,7 @@ export default class AdminController
         return this.created(
           res,
           200,
-          "Le type d'utilisateur a étè mise à jour",
+          translateText("update_type_user", req),
           result,
         )
       }
@@ -81,19 +97,6 @@ export default class AdminController
   }
 
   async delete(req: Request, res: Response) {
-    try {
-      const { params } = req
-      const { code } = params
-
-      await this.repository.deleteOne(code)
-      return this.success(
-        res,
-        200,
-        "Le type d'utilisateur a étè supprimé",
-        null,
-      )
-    } catch (error: any) {
-      return this.sendError(error.message, res)
-    }
+    throw new Error("Method not implemented.")
   }
 }

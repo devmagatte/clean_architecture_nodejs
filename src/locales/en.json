@@ -1,0 +1,15 @@
+{
+    "email_already_exists": "Email is already in use",
+    "name_already_exists": "The name already exists",
+    "code_not_found": "The code cannot be found",
+    "list_user": "List of user",
+    "store_user": "User created",
+    "show_user": "User",
+    "update_user": "User has been updated",
+    "status_user": "Status customer has been updated",
+    "delete_user": "The user has been deleted",
+    "list_type_user": "List of type user",
+    "store_type_user": "Type of user created",
+    "show_type_user": "Type of user has been updated",
+    "update_type_user": "The type of user has been deleted"
+}

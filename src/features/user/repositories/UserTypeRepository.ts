@@ -48,7 +48,7 @@ export default class AdminRepository
       if (this.isValid(result)) {
         return UserTypeSpecificField.fields(result)
       }
-      throw Error("Le code est introuvable")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }
@@ -60,7 +60,7 @@ export default class AdminRepository
       if (this.isValid(result)) {
         return UserTypeSpecificField.fields(result)
       }
-      throw Error("Le code est introuvable")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }
@@ -77,7 +77,7 @@ export default class AdminRepository
       }
 
       const isExiste = await this.datasource.isExiste(match)
-      if (isExiste) throw Error(`Le nom existe déjà `)
+      if (isExiste) throw Error("name_already_exists")
 
       const bodyRequest = {
         ...data,
@@ -99,7 +99,7 @@ export default class AdminRepository
       const find = await this.datasource.filter({ name: data.name })
       const codeFind = find ? find.code : undefined
       if (codeFind != undefined && codeFind != code) {
-        throw Error(`Le nom existe déjà `)
+        throw Error("name_already_exists")
       }
 
       const slug = this.slug.generate(data.name)
@@ -115,7 +115,7 @@ export default class AdminRepository
         return UserTypeSpecificField.fields(result)
       }
 
-      throw Error("Le code est introuvable")
+      throw Error("code_not_found")
     } catch (error: any) {
       throw Error(error.message)
     }
