@@ -64,10 +64,11 @@ export default class UserSeeder extends ApiResponse implements ISeeder {
         message: "FICHIER SEEDERS USER INTROUVABLE",
       }
     } catch (error) {
+      console.log(error)
       return {
         statusCode: 500,
         success: false,
-        message: "IMPOSSIBLE D'EXECUTER LES SEEDERS",
+        message: "IMPOSSIBLE D'EXECUTER LES SEEDERS USER",
       }
     }
   }
@@ -103,7 +104,11 @@ export default class UserSeeder extends ApiResponse implements ISeeder {
         code_user_type: typeUser.code,
       }
 
-      await this.repository.save(bodyrequest)
+      try {
+        await this.repository.save(bodyrequest)
+      } catch (error) {
+        return false
+      }
 
       return true
     } catch (error) {
