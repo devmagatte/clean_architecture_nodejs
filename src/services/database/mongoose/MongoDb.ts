@@ -13,7 +13,7 @@ export default class MongoDb implements IDatabase {
       await this.database.connect(url_database)
       console.info("Connection MongoDB réusie")
     } catch (error) {
-      throw Error(error as string)
+      console.error("Error: Impossible de se connecter avec MongoDb")
     }
   }
 
