@@ -66,7 +66,7 @@ export default class UserTypeSeeder extends ApiResponse implements ISeeder {
       return {
         statusCode: 500,
         success: false,
-        message: "FICHIER SEEDERS USER-TYPES INTROUVABLE",
+        message: "IMPOSSIBLE D'EXECUTER LES SEEDERS",
       }
     }
   }
