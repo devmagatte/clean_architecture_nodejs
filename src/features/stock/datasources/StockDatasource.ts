@@ -1,4 +1,3 @@
-import global from "../../../core/config/logger/global_winston"
 import IDatasource from "../../../core/interfaces/InterfaceDatasource"
 import OptionPagination from "../../../core/utils/OptionPagination"
 
@@ -41,7 +40,6 @@ export class StockDatasource implements IStockDatasource {
 
       return result[0]
     } catch (error: any) {
-      global.logger.error(error)
       throw error.message
     }
   }

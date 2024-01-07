@@ -1,9 +1,9 @@
-import MatriculeGenerate from "../../../core/utils/MatriculeGenerate.js"
-import MediaDatasource from "../datasources/MediaDatatsource.js"
-import MediaSpecificField from "../helpers/specific_field/MediaSpecificField.js"
+import MatriculeGenerate from "../../../core/utils/MatriculeGenerate"
+import { MediasDatasource } from "../datasources/MediaDatatsource"
+import MediaSpecificField from "../helpers/specific_field/MediaSpecificField"
 
-export default class MediasRepository {
-  constructor(private datasource = new MediaDatasource()) {}
+export class MediasRepository {
+  constructor(private datasource = new MediasDatasource()) {}
 
   async getAll(page: number, limit: number) {
     try {
@@ -26,13 +26,18 @@ export default class MediasRepository {
     }
   }
 
-  async save(url: string) {
+  async save(urls: string[]) {
     try {
-      const matricule = new MatriculeGenerate()
-      const bodyRequest = {
-        code: matricule,
-        url: url,
+      const bodyRequest: { code: string; url: string }[] = []
+      for (const url of urls) {
+        const matricule = new MatriculeGenerate()
+        let values = {
+          code: matricule.generate(),
+          url: url,
+        }
+        bodyRequest.push(values)
       }
+
       await this.datasource.store(bodyRequest)
       return null
     } catch (error: any) {

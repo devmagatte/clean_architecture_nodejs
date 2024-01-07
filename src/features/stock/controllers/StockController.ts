@@ -34,7 +34,7 @@ export class StockController extends ApiResponse implements IStockController {
       const MESSAGE_ERROR = this.verifyParams.verifyAllParamsStore(body)
 
       if (MESSAGE_ERROR.length === 0) {
-        const user = await new AuthFacade().getProfilAdminWithToken(req)
+        const user = await new AuthFacade().getProfil(req)
         body.code_user = user.code
         const result = await this.repository.save(body)
         return this.created(res, 201, "Création réussie", result)

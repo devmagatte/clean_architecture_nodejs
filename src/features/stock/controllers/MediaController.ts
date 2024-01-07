@@ -2,9 +2,9 @@ import { Request, Response } from "express"
 // import { ParamsDictionary } from "express-serve-static-core"
 // import { ParsedQs } from "qs"
 import ApiResponse from "../../../core/utils/ApiResponse"
-import MediasRepository from "../repositories/MediaRepository"
 import OptionPagination from "../../../core/utils/OptionPagination"
 import UrlFileUtil from "../../../core/utils/urlFileUtil"
+import { MediasRepository } from "../repositories/MediaRepository"
 
 const staticUrlImage = "medias"
 
@@ -28,10 +28,10 @@ export class MediasController extends ApiResponse {
 
   async store(req: Request, res: Response) {
     try {
-      const urlImage = UrlFileUtil.getUrlFiles(req, staticUrlImage)
-      const urlHost = UrlFileUtil.setUrlsWithHosting(req, urlImage)
+      console.log("test")
+      const urlImages = UrlFileUtil.getUrlFiles(req, staticUrlImage)
 
-      const result = await this.repository.save(urlHost)
+      const result = await this.repository.save(urlImages)
       return this.created(res, 201, "Medias créé", result)
     } catch (error: any) {
       return this.fail(res, error)

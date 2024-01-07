@@ -1,7 +1,7 @@
 import OptionPagination from "../../../core/utils/OptionPagination"
 import { MediasEntity } from "../schema/medias"
 
-export default class MediaDatasource {
+export class MediasDatasource {
   constructor(private schema = MediasEntity) {}
 
   async findAll(page: number, limit: number) {
@@ -16,7 +16,7 @@ export default class MediaDatasource {
 
   async store(body: any) {
     try {
-      return await this.schema.create(body)
+      return await this.schema.insertMany(body)
     } catch (error: any) {
       throw error.message
     }
