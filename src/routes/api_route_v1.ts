@@ -26,7 +26,8 @@ app.use(configSession)
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(express.static("public"))
+app.use(express.static("src/public"))
+app.use("/medias", express.static("/medias"))
 
 RouteUser(app)
 RouteAuth(app)
